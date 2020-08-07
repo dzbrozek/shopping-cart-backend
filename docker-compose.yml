@@ -1,0 +1,47 @@
+version: "3.5"
+
+services:
+  db:
+    image: postgres:12.3
+    env_file:
+      - .env
+    ports:
+      - "5434:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+  rabbitmq:
+    restart: always
+    image: rabbitmq:3.8.6
+    expose:
+      - "5672"
+
+  backend: &backend
+    restart: always
+    command: start-backend
+    build:
+      context: .
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - rabbitmq
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true
+    logging:
+      options:
+        max-size: "200k"
+
+  worker:
+    <<: *backend
+    ports: []
+    command: start-worker -l INFO -Q default
+
+
+volumes:
+  pg-data:
+    driver: local
