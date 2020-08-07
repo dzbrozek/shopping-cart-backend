@@ -79,5 +79,6 @@ jobs:
         with:
           dockerfile: Dockerfile
       - uses: wagoid/commitlint-github-action@v2
+        name: Lint commit
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
