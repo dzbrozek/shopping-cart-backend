@@ -1,5 +1,5 @@
 up:
-	docker-compose up -d
+	docker-compose up -d $(arguments)
 bootstrap: down removevolumes
 	docker-compose run --rm backend bootstrap
 	make up

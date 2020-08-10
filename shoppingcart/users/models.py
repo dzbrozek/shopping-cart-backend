@@ -36,6 +36,7 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     username = None  # type: ignore
     email = models.EmailField('email address', unique=True)
+    is_admin = models.BooleanField(default=False, help_text='admins can manage products')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS: List[str] = []
