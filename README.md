@@ -37,6 +37,7 @@ Test users created during bootstrapping the project.
 | Login          | Password | Role  |
 |----------------|----------|-------|
 | admin@test.com | password | admin |
+| user@test.com  | password | user  |
 
 ### Tests
 

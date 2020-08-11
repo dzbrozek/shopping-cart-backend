@@ -1,0 +1,32 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "uuid": "01c4c9d0-3926-4a81-805c-b3c80754d241",
+        "name": "Round Diamond",
+        "price": "519.00",
+        "image": "products/product/round.png"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "uuid": "138c185e-410d-4eef-b52c-1c2886eab1e2",
+        "name": "Emerald Diamond",
+        "price": "300.00",
+        "image": "products/product/emerald.png"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "uuid": "eb4ed1b4-7e7d-4368-a0e3-c06a292a0fdf",
+        "name": "Trilliant Diamond",
+        "price": "1200.00",
+        "image": "products/product/trilliant.png"
+    }
+}
+]

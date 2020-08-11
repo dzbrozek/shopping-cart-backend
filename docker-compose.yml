@@ -30,7 +30,6 @@ services:
       - rabbitmq
     volumes:
       - .:/app
-      - media:/app/media
     stdin_open: true
     tty: true
     logging:
@@ -45,4 +44,3 @@ services:
 
 volumes:
   pg-data:
-  media:
