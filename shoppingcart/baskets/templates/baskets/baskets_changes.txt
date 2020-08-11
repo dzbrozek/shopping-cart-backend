@@ -1,0 +1,5 @@
+Following baskets have been changed since the last check:
+
+{% for basket in baskets %}
+* ID: {{ basket.uuid }}
+{% endfor %}

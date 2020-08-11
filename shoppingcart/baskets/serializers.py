@@ -40,9 +40,5 @@ class BasketShareSerializer(Serializer):
     def save(self, **kwargs: dict) -> None:
         message = render_to_string('baskets/share_basket.txt', {'products': self.basket.products.all()})  # type: ignore
         send_mail(
-            'Check out these products',
-            message,
-            settings.DEFAULT_FROM_EMAIL,
-            [self.validated_data['email']],
-            fail_silently=False,
+            'Check out these products', message, settings.DEFAULT_FROM_EMAIL, [self.validated_data['email']],
         )
