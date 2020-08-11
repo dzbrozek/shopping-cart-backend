@@ -46,7 +46,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_extensions',
     'debug_toolbar',
+    'djcelery_email',
     'users',
+    'products',
+    'baskets',
 ]
 
 MIDDLEWARE = [
@@ -127,6 +130,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR.parent.joinpath('media')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],
@@ -152,3 +157,7 @@ CORS_ALLOW_CREDENTIALS = True
 SHELL_PLUS = "ipython"
 
 AUTH_USER_MODEL = "users.User"
+
+# email
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+DEFAULT_FROM_EMAIL = 'noreplay@test.com'
