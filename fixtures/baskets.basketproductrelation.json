@@ -1,0 +1,42 @@
+[
+{
+    "model": "baskets.basketproductrelation",
+    "pk": 1,
+    "fields": {
+        "uuid": "160be578-ae6f-4f70-ac97-d70bc380f76c",
+        "product": 3,
+        "basket": 4,
+        "quantity": 3
+    }
+},
+{
+    "model": "baskets.basketproductrelation",
+    "pk": 2,
+    "fields": {
+        "uuid": "e999191e-aaa9-41a9-8f36-36980a26e6ae",
+        "product": 2,
+        "basket": 4,
+        "quantity": 2
+    }
+},
+{
+    "model": "baskets.basketproductrelation",
+    "pk": 3,
+    "fields": {
+        "uuid": "a215f8a1-b602-453a-8e17-8d81c9cc3121",
+        "product": 1,
+        "basket": 2,
+        "quantity": 1
+    }
+},
+{
+    "model": "baskets.basketproductrelation",
+    "pk": 4,
+    "fields": {
+        "uuid": "abfa5e55-c71e-4e9f-a9fe-e23939800e3a",
+        "product": 2,
+        "basket": 1,
+        "quantity": 2
+    }
+}
+]

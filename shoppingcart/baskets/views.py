@@ -3,6 +3,7 @@ from typing import Optional
 from baskets.models import Basket, BasketProductRelation
 from baskets.serializers import BasketProductSerializer, BasketShareSerializer
 from django.db import transaction
+from djangorestframework_camel_case.render import CamelCaseJSONRenderer
 from products.models import Product
 from rest_framework import serializers, status
 from rest_framework.generics import GenericAPIView, get_object_or_404
@@ -32,6 +33,7 @@ class BasketMixin(GenericAPIView):
 
 class BasketAPIView(BasketMixin, GenericAPIView):
     serializer_class = BasketProductSerializer
+    renderer_classes = [CamelCaseJSONRenderer]
 
     def get(self, request: Request, *args: tuple, **kwargs: dict) -> Response:
         basket = self.get_basket()

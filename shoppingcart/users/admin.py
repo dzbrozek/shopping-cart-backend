@@ -1,17 +1,15 @@
 from django.contrib import admin
-from django.contrib.admin.forms import AdminPasswordChangeForm
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
+from users.forms import UserCreationForm
 from users.models import User
 
 
 @admin.register(User)
-class AdminUser(admin.ModelAdmin):
+class UserAdmin(BaseUserAdmin):
     list_display = ['id', 'email', 'first_name', 'last_name']
     search_fields = ['id', 'email', 'first_name', 'last_name']
-    add_form_template = 'admin/auth/user/add_form.html'
-    change_user_password_template = None
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
@@ -19,9 +17,8 @@ class AdminUser(admin.ModelAdmin):
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = ((None, {'classes': ('wide',), 'fields': ('email', 'password1', 'password2')}),)
-    form = UserChangeForm
     add_form = UserCreationForm
-    change_password_form = AdminPasswordChangeForm
+    ordering = ['id']
 
 
 admin.site.unregister(Group)
