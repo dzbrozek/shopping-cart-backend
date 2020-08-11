@@ -17,3 +17,7 @@ class Basket(Uuidable):
 
     def __str__(self) -> str:
         return f'Basket: {self.uuid}'
+
+    def mark_updated(self) -> None:
+        self.updated = True
+        self.save(update_fields=['updated'])

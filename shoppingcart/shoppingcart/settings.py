@@ -161,3 +161,7 @@ AUTH_USER_MODEL = "users.User"
 # email
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 DEFAULT_FROM_EMAIL = 'noreplay@test.com'
+
+
+TEST_RUNNER = 'utils.runners.CustomDiscoverRunner'
+TEST_SETTINGS = {'MEDIA_ROOT': BASE_DIR.parent.joinpath('testmedia')}

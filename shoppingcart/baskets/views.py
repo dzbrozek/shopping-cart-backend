@@ -43,10 +43,12 @@ class BasketAPIView(BasketMixin, GenericAPIView):
         serializer = self.get_serializer(basket_products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @transaction.atomic
     def delete(self, request: Request, *args: tuple, **kwargs: dict) -> Response:
         basket = self.get_basket_or_error()
 
         BasketProductRelation.objects.filter(basket=basket).delete()
+        basket.mark_updated()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -74,12 +76,15 @@ class BasketProductsAPIView(BasketMixin, GenericAPIView):
         serializer = self.get_serializer(data=request.data, instance=basket_product)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        basket.mark_updated()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @transaction.atomic
     def delete(self, request: Request, *args: tuple, **kwargs: dict) -> Response:
         basket = self.get_basket_or_error()
         product = get_object_or_404(Product, uuid=kwargs.get('product_id'))
 
         BasketProductRelation.objects.filter(basket=basket, product=product).delete()
+        basket.mark_updated()
 
         return Response(status=status.HTTP_204_NO_CONTENT)

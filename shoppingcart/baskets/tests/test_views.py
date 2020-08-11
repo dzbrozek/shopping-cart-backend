@@ -61,7 +61,7 @@ class BasketAPIViewGetTest(BasketTestMixin, APITestCase):
 
 class BasketAPIViewDeleteTest(BasketTestMixin, APITestCase):
     def test_delete_product_from_basket(self):
-        basket = BasketFactory()
+        basket = BasketFactory(updated=False)
         BasketProductRelationFactory.create_batch(2, basket=basket)
 
         self.assertEqual(basket.products.count(), 2)
@@ -71,6 +71,8 @@ class BasketAPIViewDeleteTest(BasketTestMixin, APITestCase):
         response = self.client.delete(reverse('baskets:basket'))
         self.assertEqual(response.status_code, 204)
 
+        basket.refresh_from_db()
+        self.assertTrue(basket.updated)
         self.assertEqual(basket.products.count(), 0)
 
 
@@ -91,7 +93,7 @@ class BasketProductsAPIViewPutTest(BasketTestMixin, APITestCase):
     maxDiff = None
 
     def setUp(self):
-        self.basket = BasketFactory()
+        self.basket = BasketFactory(updated=False)
         self.product = ProductFactory()
         self.context = dict(request=MediaHttpRequest())
 
@@ -107,6 +109,8 @@ class BasketProductsAPIViewPutTest(BasketTestMixin, APITestCase):
         basket_product = BasketProductRelation.objects.get(product=self.product, basket=self.basket)
         self.assertEqual(basket_product.quantity, 5)
         self.assertDictEqual(response.json(), BasketProductSerializer(basket_product, context=self.context).data)
+        self.basket.refresh_from_db()
+        self.assertTrue(self.basket.updated)
 
     def test_update_product_quantity(self):
         basket_product = BasketProductRelationFactory(product=self.product, basket=self.basket, quantity=3)
@@ -119,6 +123,8 @@ class BasketProductsAPIViewPutTest(BasketTestMixin, APITestCase):
         basket_product.refresh_from_db()
         self.assertEqual(basket_product.quantity, 2)
         self.assertDictEqual(response.json(), BasketProductSerializer(basket_product, context=self.context).data)
+        self.basket.refresh_from_db()
+        self.assertTrue(self.basket.updated)
 
     def test_add_unknown_product(self):
         data = {'quantity': 2}
@@ -131,7 +137,7 @@ class BasketProductsAPIViewPutTest(BasketTestMixin, APITestCase):
 
 class BasketProductsAPIViewDeleteTest(BasketTestMixin, APITestCase):
     def setUp(self):
-        self.basket = BasketFactory()
+        self.basket = BasketFactory(updated=False)
         self.product = ProductFactory()
         self.basket_product = BasketProductRelationFactory(basket=self.basket, product=self.product, quantity=3)
 
@@ -145,6 +151,9 @@ class BasketProductsAPIViewDeleteTest(BasketTestMixin, APITestCase):
 
         with self.assertRaises(BasketProductRelation.DoesNotExist):
             self.basket_product.refresh_from_db()
+
+        self.basket.refresh_from_db()
+        self.assertTrue(self.basket.updated)
 
     def test_delete_unknown_product_from_basket(self):
         response = self.client.delete(reverse('baskets:basket-products', kwargs=dict(product_id=str(uuid.uuid4()))),)
