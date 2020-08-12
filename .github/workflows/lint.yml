@@ -43,9 +43,7 @@ jobs:
           python manage.py migrate --noinput
           coverage run --rcfile="../.coveragerc" --parallel-mode manage.py test --verbosity 3 --parallel
           coverage combine --rcfile="../.coveragerc"
-          coverage html --rcfile="../.coveragerc"
           coverage xml --rcfile="../.coveragerc"
-          coverage report -m --rcfile="../.coveragerc"
       - name: Check migrations
         run: |
           cd shoppingcart
