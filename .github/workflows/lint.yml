@@ -41,14 +41,20 @@ jobs:
         run: |
           cd shoppingcart
           python manage.py migrate --noinput
-          coverage run --parallel-mode manage.py test --verbosity 3 --parallel
-          coverage combine
-          coverage html && coverage report -m
-          coverage xml
+          coverage run --rcfile="../.coveragerc" --parallel-mode manage.py test --verbosity 3 --parallel
+          coverage combine --rcfile="../.coveragerc"
+          coverage html --rcfile="../.coveragerc"
+          coverage xml --rcfile="../.coveragerc"
+          coverage report -m --rcfile="../.coveragerc"
       - name: Check migrations
         run: |
           cd shoppingcart
           python manage.py makemigrations --check --dry-run
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./shoppingcart/coverage.xml
 
   lint:
     runs-on: ubuntu-latest
