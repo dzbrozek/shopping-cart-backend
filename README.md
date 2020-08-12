@@ -13,7 +13,10 @@ and [Docker Compose](https://docs.docker.com/compose/install/)
 
 To bootstrap the app move to the app directory and call
 
-```make bootstrap```
+```
+make build
+make bootstrap
+```
 
 
 Once it's done the app should be up app and running. You can verify that visiting [http://127.0.0.1:8000/](http://127.0.0.1:8000/).

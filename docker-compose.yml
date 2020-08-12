@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3.7"
 
 services:
   db:
@@ -19,6 +19,7 @@ services:
   backend: &backend
     restart: always
     command: start-backend
+    image: shopping-cart-backend
     build:
       context: .
     env_file:
@@ -30,7 +31,6 @@ services:
       - rabbitmq
     volumes:
       - .:/app
-      - test-media:/app/testmedia
     stdin_open: true
     tty: true
     logging:
@@ -45,4 +45,3 @@ services:
 
 volumes:
   pg-data:
-  test-media:
