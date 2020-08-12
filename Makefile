@@ -1,3 +1,10 @@
+.PHONY : build up bootstrap down removevolumes mypy test test managepy precommit testci
+
+build:
+	docker build -t shopping-cart-backend \
+	--build-arg USER_ID=$(shell id -u) \
+	--build-arg GROUP_ID=$(shell id -g) \
+	$(arguments) .
 up:
 	docker-compose up -d $(arguments)
 bootstrap: down removevolumes
