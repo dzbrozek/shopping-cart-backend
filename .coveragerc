@@ -1,18 +1,14 @@
 [run]
-parallel = true
-concurrency=multiprocessing
+parallel = True
+branch = True
+concurrency = multiprocessing
 source = .
 omit =
     */migrations/*
     */commands/*
-    */test_*.py
+    */tests/test_*.py
+    */settings/*
     */manage.py
-    */settings.py
-    */asgi.py
-    */wsgi.py
 
 [report]
-ignore_errors = true
-
-[html]
-directory = ./coverage
+ignore_errors = True

@@ -2,6 +2,11 @@
 
 Simple REST API for shopping cart implemented in Django & DRF. For frontend part visit [shopping-cart-frontend](https://github.com/dzbrozek/shopping-cart-frontend)
 
+
+
+[![codecov](https://codecov.io/gh/dzbrozek/shopping-cart-backend/branch/master/graph/badge.svg)](https://codecov.io/gh/dzbrozek/shopping-cart-backend)
+
+
 ### Running
 
 #### Requirements
