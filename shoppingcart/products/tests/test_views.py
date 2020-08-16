@@ -60,7 +60,7 @@ class ProductViewSetDestroyTest(APITestCase):
         user = UserFactory(is_admin=True, is_active=True)
         self.client.force_login(user)
 
-        response = self.client.delete(reverse('products:product-detail', kwargs=dict(pk=self.product.pk)))
+        response = self.client.delete(reverse('products:product-detail', kwargs=dict(uuid=str(self.product.uuid))))
         self.assertEqual(response.status_code, 204)
 
         with self.assertRaises(Product.DoesNotExist):
@@ -70,11 +70,11 @@ class ProductViewSetDestroyTest(APITestCase):
         user = UserFactory(is_admin=False, is_active=True)
         self.client.force_login(user)
 
-        response = self.client.delete(reverse('products:product-detail', kwargs=dict(pk=self.product.pk)))
+        response = self.client.delete(reverse('products:product-detail', kwargs=dict(uuid=str(self.product.uuid))))
         self.assertEqual(response.status_code, 403)
         self.assertDictEqual(response.json(), {'detail': 'You do not have permission to perform this action.'})
 
     def test_unauthenticated_user_cannot_delete_product(self):
-        response = self.client.delete(reverse('products:product-detail', kwargs=dict(pk=self.product.pk)))
+        response = self.client.delete(reverse('products:product-detail', kwargs=dict(uuid=str(self.product.uuid))))
         self.assertEqual(response.status_code, 403)
         self.assertDictEqual(response.json(), {'detail': 'Authentication credentials were not provided.'})
