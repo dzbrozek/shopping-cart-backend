@@ -22,6 +22,7 @@ class ProductViewSet(
             'authentication_classes': [SessionAuthentication],
         },
     }
+    lookup_field = 'uuid'
 
     def get_queryset(self) -> QuerySet[Product]:
         return Product.objects.all()
