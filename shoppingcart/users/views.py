@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import logout
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication
@@ -30,6 +31,12 @@ class LoginAPIView(GenericAPIView):
 
 class LogoutAPIView(GenericAPIView):
     def post(self, request: Request, *args: tuple, **kwargs: dict) -> Response:
+        basket_id = self.request.session.get(settings.BASKET_SESSION_ID, None)
+
         logout(request)
+
+        # we want to preserve basket after logout
+        if basket_id:
+            request.session[settings.BASKET_SESSION_ID] = basket_id
 
         return Response(status=status.HTTP_204_NO_CONTENT)

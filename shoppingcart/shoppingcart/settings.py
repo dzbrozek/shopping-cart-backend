@@ -158,3 +158,6 @@ DEFAULT_FROM_EMAIL = 'noreplay@test.com'
 
 TEST_RUNNER = 'utils.runners.CustomDiscoverRunner'
 TEST_SETTINGS = {'MEDIA_ROOT': '/tmp/media'}
+
+
+BASKET_SESSION_ID = 'basket_id'
