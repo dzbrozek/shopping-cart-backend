@@ -2,6 +2,7 @@ from typing import Optional
 
 from baskets.models import Basket, BasketProductRelation
 from baskets.serializers import BasketProductSerializer, BasketShareSerializer
+from django.conf import settings
 from django.db import transaction
 from products.models import Product
 from rest_framework import serializers, status
@@ -9,12 +10,10 @@ from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-BASKET_SESSION_ID = 'basket_id'
-
 
 class BasketMixin(GenericAPIView):
     def get_basket(self) -> Optional[Basket]:
-        basket_id = self.request.session.get(BASKET_SESSION_ID, None)
+        basket_id = self.request.session.get(settings.BASKET_SESSION_ID, None)
 
         if not basket_id:
             return None
@@ -37,7 +36,7 @@ class BasketAPIView(BasketMixin, GenericAPIView):
         basket = self.get_basket()
         if not basket:
             basket = Basket.objects.create()
-            request.session[BASKET_SESSION_ID] = str(basket.uuid)
+            request.session[settings.BASKET_SESSION_ID] = str(basket.uuid)
 
         basket_products = BasketProductRelation.objects.filter(basket=basket).select_related('product')
         serializer = self.get_serializer(basket_products, many=True)

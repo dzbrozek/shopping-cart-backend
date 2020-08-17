@@ -3,19 +3,11 @@ import uuid
 from baskets.factories import BasketFactory, BasketProductRelationFactory
 from baskets.models import Basket, BasketProductRelation
 from baskets.serializers import BasketProductSerializer
-from baskets.views import BASKET_SESSION_ID
 from django.core import mail
 from django.urls import reverse
 from products.factories import ProductFactory
 from rest_framework.test import APITestCase
-from utils.tests import MediaHttpRequest
-
-
-class BasketTestMixin:
-    def set_up_basket_session(self, basket_id):
-        session = self.client.session
-        session[BASKET_SESSION_ID] = basket_id
-        session.save()
+from utils.tests import BasketTestMixin, MediaHttpRequest
 
 
 class BasketAPIViewGetTest(BasketTestMixin, APITestCase):
