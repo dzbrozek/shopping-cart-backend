@@ -154,6 +154,7 @@ AUTH_USER_MODEL = "users.User"
 
 # email
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+CELERY_EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'noreplay@test.com'
 
 TEST_RUNNER = 'utils.runners.CustomDiscoverRunner'

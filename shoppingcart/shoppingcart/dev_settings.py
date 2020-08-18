@@ -15,3 +15,5 @@ ALLOWED_HOSTS = ['*']
 
 SHELL_PLUS_PRINT_SQL = True
 SHELL_PLUS_PRINT_SQL_TRUNCATE = None
+
+CELERY_EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
