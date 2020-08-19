@@ -1,5 +1,5 @@
 Check out these products:
 
 {% for product in products %}
-* {{ product.name }}: {{ product.price }} $
+* {{ product.name }}: ${{ product.price }}
 {% endfor %}
